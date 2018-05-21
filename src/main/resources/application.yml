@@ -1,0 +1,33 @@
+spring:
+    profiles:
+        active: dev
+    application:
+        name: api-gateway
+security:
+  basic:
+    enabled: false
+  oauth2:
+    resource:
+      id: api-gateway
+      jwt:
+        key-value: 123456
+
+---
+
+spring:
+    profiles: dev
+server:
+  port: 8080
+zuul:
+  routes:
+    core:
+      path: /core/**
+      url: http://localhost:8081/
+      stripPrefix: false
+    auth:
+      path: /auth/**
+      url: http://localhost:8082/
+      stripPrefix: false
+
+endpoints:
+    sensitive: false
