@@ -1,6 +1,7 @@
 package ua.nure.tanasiuk.config;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.springframework.http.HttpMethod;
 import ua.nure.tanasiuk.controller.Http401AuthenticationEntryPointImpl;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -29,6 +30,7 @@ public class SecurityConfig extends ResourceServerConfigurerAdapter {
     public void configure(HttpSecurity http) throws Exception {
         http.anonymous()
             .and().authorizeRequests().antMatchers(Constants.Url.URL_WITHOUT_AUTH).permitAll()
+            .and().authorizeRequests().antMatchers(HttpMethod.OPTIONS,"/**").permitAll()
             .and().authorizeRequests().anyRequest().authenticated()
             .and().exceptionHandling().authenticationEntryPoint(http401AuthenticationEntryPoint())
             .and().csrf().disable();
