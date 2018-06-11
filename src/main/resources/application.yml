@@ -19,6 +19,7 @@ spring:
 server:
   port: 8080
 zuul:
+  host.socket-timeout-millis: 30000
   routes:
     core:
       path: /core/**
